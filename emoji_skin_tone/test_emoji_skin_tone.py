@@ -20,7 +20,7 @@ class TestEmojiSkinTone(unittest.TestCase):
     def test_apply_skin_tone(self):
         input_string = "Hello World! 👩‍💼👨‍💻"
         expected_output = "Hello World! 👩🏽‍💼👨🏽‍💻"
-        self.assertEqual(apply_skin_tone(input_string, Fitzpatrick.TYPE_3), expected_output)
+        self.assertEqual(apply_skin_tone(input_string, Fitzpatrick.type_3), expected_output)
 
 
 if __name__ == "__main__":
