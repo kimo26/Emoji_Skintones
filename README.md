@@ -40,10 +40,10 @@ colored_string = apply_skin_tone("Hello World! 👩👨🏿", Fitzpatrick.TYPE_3
     ```
 - To extract human emoji from a string:
     ```bash
-        python cli.py extract "Hello World! 👩👨🏿"
+    python cli.py extract "Hello World! 👩👨🏿"
 
     ```
 - To apply skin-tone modifiers to human emoji in a string:
     ```bash
-            python cli.py apply "Hello World! 👩👨🏿" 3
+    python cli.py apply "Hello World! 👩👨🏿" 3
     ```
