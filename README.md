@@ -9,6 +9,9 @@ A Python library for manipulating emoji skin tones.
 - Applying skin-tone modifiers to human emoji in a string
 
 ## Installation
+
+Download this folder then you can simply pip install it locally:
+
 ```bash
 pip install emoji-skin-tone
 ```
