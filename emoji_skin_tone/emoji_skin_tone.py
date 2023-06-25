@@ -20,7 +20,7 @@ def strip_skin_tone_modifiers(s: str) -> str:
     :param s: The input string containing emojis with or without skin tone modifiers
     :return: A copy of the input string with skin tone modifiers removed
     '''
-    
+
     #Using regex substitution to remove skin tone modifiers from the input
     return regex.sub(f"[{regex.escape(''.join([val.value for _,val in Fitzpatrick.__members__.items()]))}]", "", s)
 
@@ -34,14 +34,14 @@ def extract_human_emoji(s: str) -> list[str]:
     :param s: The input string containing emojis
     :return: A list of substrings containing human emojis with any present skin tone modifiers
     '''
-    
-    #Using a regex pattern to find all human emoji in the input string and return them in a list
-    return regex.findall(r"[\u200D\uFE0F]?\p{Emoji_Presentation}\uFE0F?", s)
+    pattern = r'\X'
+    emojis = regex.findall(pattern, s)
+    return [emoji for emoji in emojis if regex.match(r'\p{Emoji_Presentation}|\p{Emoji_Modifier_Base}', emoji)]
 
 
 
-#Function to apply skin tone modifiers to human emojis in a given string
-def apply_skin_tone(s: str, skin_tone : Fitzpatrick) -> str:
+# Function to apply skin tone modifiers to human emojis in a given string
+def apply_skin_tone(s: str, skin_tone: Fitzpatrick) -> str:
     '''
     Apply the specified skin tone modifier to all human emojis in the input string.
 
@@ -49,17 +49,20 @@ def apply_skin_tone(s: str, skin_tone : Fitzpatrick) -> str:
     :param skin_tone: A value from the Fitzpatrick Enum representing the desired skin tone modifier
     :return: A copy of the input string with the specified skin tone modifier applied to all human emojis (string)
     '''
-    
-    #Removes existing skin tone modifiers from the input string
+
+    # Remove existing skin tone modifiers from the input string
     stripped_string = strip_skin_tone_modifiers(s)
 
-    #Defines a custom replacement function that adds the skin tone modifier
+    # Define a custom replacement function that adds the skin tone modifier
     def replace_emoji(match):
-        #Gets the matched emoji and converts it to the skin tone modifier
-        return match.group(0) + skin_tone.value
-    
-    # Uses a regex pattern to find all human emojis without skin tone modifiers and replaces them using our replacement function
-    # This pattern is more efficient and general, as it captures all human emojis.
-    return regex.sub(r"(\p{Emoji_Presentation})(?!\uFE0F)", replace_emoji, stripped_string)
+        # Get the matched emoji and converts it to the skin tone modifier if possible
+        emoji = match.group(0)
+        
+        if regex.match(r'\p{Emoji_Modifier_Base}', emoji):
+          emoji+=skin_tone.value
 
-    
+        return emoji
+
+    # Uses a regex pattern to find all human emojis without skin tone modifiers and replaces them using our replacement function
+    # This pattern captures both standalone emojis and emojis combined with other characters
+    return regex.sub(r"(\p{Emoji_Presentation})(?!\uFE0F)", replace_emoji, stripped_string)
