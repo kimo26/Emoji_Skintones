@@ -1,20 +1,37 @@
 # Emoji Skin Tone
 
-A Python library for manipulating emoji skin tones.
+Emoji Skin Tone is a Python library that allows you to manipulate the skin tones of human emojis in a string. It provides functionality to strip skin tone modifiers from emojis, extract human emojis from a string, and apply a specific skin tone to human emojis.
 
 ## Features
 
-- Stripping skin-tone modifiers from a string
-- Extracting human emoji with or without skin-tone modifiers from a string
-- Applying skin-tone modifiers to human emoji in a string
+- **Strip Skin Tone Modifiers**: Remove all skin tone modifiers from human emojis in a string.
+- **Extract Human Emojis**: Extract all human emojis from a string, including any present skin tone modifiers.
+- **Apply Skin Tone**: Apply a specific skin tone to all human emojis in a string.
+
 
 ## Installation
 
-Download this folder then you can simply pip install it locally:
+You can install this library locally by downloading this repository and using pip:
 
 ```bash
 pip install emoji-skin-tone
 ```
+
+## The Fitzpatrick Scale
+
+The Fitzpatrick scale is a six-point classification system for human skin color. It's used in this library to represent a range of skin tones for human emojis.
+
+
+In this library, we use the Fitzpatrick scale to apply skin tone modifiers to human emojis. The `Fitzpatrick` enum in the `emoji_skin_tone` module represents the six types of the Fitzpatrick scale:
+
+- `Fitzpatrick.TYPE_1`: Light skin, often burns and rarely tans (e.g., 👩🏻‍💻)
+- `Fitzpatrick.TYPE_2`: Fair skin, burns easily and tans minimally (e.g., 👩🏼‍💻)
+- `Fitzpatrick.TYPE_3`: Medium skin, may burn but tans uniformly (e.g., 👩🏽‍💻)
+- `Fitzpatrick.TYPE_4`: Olive skin, rarely burns and tans well (e.g., 👩🏾‍💻)
+- `Fitzpatrick.TYPE_5`: Moderately pigmented brown skin, very rarely burns and tans very easily (e.g., 👩🏿‍💻)
+- `Fitzpatrick.TYPE_6`: Heavily pigmented black skin, never burns and tans very easily (e.g., 👩🏿‍💻)
+
+You can use these types with the `apply_skin_tone` function to apply skin tone modifiers to human emojis in a string.
 
 ## Usage
 
