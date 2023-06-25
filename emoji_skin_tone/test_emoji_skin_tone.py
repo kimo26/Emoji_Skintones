@@ -2,25 +2,38 @@ import unittest
 from emoji_skin_tone import Fitzpatrick, strip_skin_tone_modifiers, extract_human_emoji, apply_skin_tone
 
 # Defines a test case class that inherits from unittest.TestCase
-class TestEmojiSkinTone(unittest.TestCase):
+class TestEmojiSkinToneFunctions(unittest.TestCase):
 
-    # Tests the strip_skin_tone_modifiers function
     def test_strip_skin_tone_modifiers(self):
-        input_string = "Hello World! 👩🏻‍💼👨🏼‍💻"
-        expected_output = "Hello World! 👩‍💼👨‍💻"
-        self.assertEqual(strip_skin_tone_modifiers(input_string), expected_output)
+        # Test with a string containing multiple emojis with different skin tones
+        self.assertEqual(strip_skin_tone_modifiers("Hello World! 👩🏽‍💻👨🏿‍💻👦🏻👧🏾"), "Hello World! 👩‍💻👨‍💻👦👧")
 
-    # Tests the extract_human_emoji function
+        # Test with a string containing an emoji without a skin tone
+        self.assertEqual(strip_skin_tone_modifiers("Hello World! 👩‍💻"), "Hello World! 👩‍💻")
+
+        # Test with a string containing no emojis
+        self.assertEqual(strip_skin_tone_modifiers("Hello World!"), "Hello World!")
+
     def test_extract_human_emoji(self):
-        input_string = "Hello World! 👩🏻‍💼👨🏼‍💻"
-        expected_output = ["👩🏻‍💼", "👨🏼‍💻"]
-        self.assertEqual(extract_human_emoji(input_string), expected_output)
+        # Test with a string containing multiple emojis with different skin tones
+        self.assertEqual(extract_human_emoji("Hello World! 👩🏽‍💻👨🏿‍💻👦🏻👧🏾"), ['👩🏽‍💻', '👨🏿‍💻', '👦🏻', '👧🏾'])
 
-    # Tests the apply_skin_tone function
+        # Test with a string containing an emoji without a skin tone
+        self.assertEqual(extract_human_emoji("Hello World! 👩‍💻"), ['👩‍💻'])
+
+        # Test with a string containing no emojis
+        self.assertEqual(extract_human_emoji("Hello World!"), [])
+
     def test_apply_skin_tone(self):
-        input_string = "Hello World! 👩‍💼👨‍💻"
-        expected_output = "Hello World! 👩🏽‍💼👨🏽‍💻"
-        self.assertEqual(apply_skin_tone(input_string, Fitzpatrick.type_3), expected_output)
+        # Test with a string containing multiple emojis and apply a skin tone
+        self.assertEqual(apply_skin_tone("Hello World! 👩‍💻👨‍💻👦👧", Fitzpatrick.type_4), "Hello World! 👩🏽‍💻👨🏽‍💻👦🏽👧🏽")
+
+        # Test with a string containing an emoji without a skin tone and apply a skin tone
+        self.assertEqual(apply_skin_tone("Hello World! 👩‍💻", Fitzpatrick.type_4), "Hello World! 👩🏽‍💻")
+
+        # Test with a string containing no emojis and try to apply a skin tone
+        self.assertEqual(apply_skin_tone("Hello World!", Fitzpatrick.type_3), "Hello World!")
+
 
 
 if __name__ == "__main__":
