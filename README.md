@@ -68,3 +68,31 @@ The library also provides a command-line interface for these functions:
     ```bash
     python cli.py apply "Hello World! 👩‍💻👨‍💻" 4
     ```
+
+## Unit Tests
+
+This library includes a comprehensive set of unit tests to ensure the correctness of its main features. The tests cover various scenarios and verify the behavior of the functions provided by the library.
+
+To run the unit tests, follow these steps:
+
+1. Ensure you have Python installed on your machine.
+
+2. Navigate to the root directory of the project where the `test_emoji_skin_tone.py` file is located.
+
+3. Run the following command to execute the unit tests:
+
+   ```bash
+   python test_emoji_skin_tone.py
+   ```
+
+   This will run all the tests and display the results in the console.
+
+The unit tests validate the functionality of the following functions:
+
+- `strip_skin_tone_modifiers`: Tests the removal of skin tone modifiers from a string.
+- `extract_human_emoji`: Tests the extraction of human emojis from a string.
+- `apply_skin_tone`: Tests the application of skin tone modifiers to human emojis in a string.
+
+Running the unit tests and observing that all tests pass confirms that the library's core features are working as intended. If any tests fail, it indicates a potential issue that needs investigation.
+
+Feel free to explore the `test_emoji_skin_tone.py` file to see the specific test cases and assertions used in the unit tests.
